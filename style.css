@@ -1,0 +1,263 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #1a1a2e;
+  color: #eee;
+  min-height: 100vh;
+}
+
+#app {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+header h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #0f3460;
+  text-shadow: 0 0 10px rgba(15, 52, 96, 0.5);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-end;
+  background: #16213e;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.control-group label {
+  font-size: 0.85rem;
+  color: #a0a0c0;
+}
+
+.control-group input[type="number"] {
+  width: 80px;
+  padding: 8px;
+  border: 1px solid #0f3460;
+  border-radius: 5px;
+  background: #1a1a2e;
+  color: #eee;
+  text-align: center;
+}
+
+.control-group input[type="range"] {
+  width: 120px;
+  accent-color: #0f3460;
+}
+
+.control-group select {
+  padding: 8px;
+  border: 1px solid #0f3460;
+  border-radius: 5px;
+  background: #1a1a2e;
+  color: #eee;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+#play-btn {
+  background: #0f3460;
+  color: white;
+}
+
+#play-btn:hover {
+  background: #1a4a7a;
+}
+
+#stop-btn {
+  background: #e94560;
+  color: white;
+}
+
+#stop-btn:hover {
+  background: #ff6b81;
+}
+
+#clear-btn {
+  background: #533483;
+  color: white;
+}
+
+#clear-btn:hover {
+  background: #6a42a0;
+}
+
+#export-btn {
+  background: #00b894;
+  color: white;
+}
+
+#export-btn:hover {
+  background: #00d4a7;
+}
+
+main {
+  background: #16213e;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#piano-roll {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  position: relative;
+  margin-top: 20px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.grid-cell.dragging {
+  background: #1a4a7a;
+}
+
+.grid-cell.dragging.active {
+  background: #0a2a4a;
+}
+
+#note-labels {
+  display: flex;
+  flex-direction: column;
+  width: 60px;
+  min-width: 60px;
+  border-right: 2px solid #0f3460;
+}
+
+.note-label {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+  font-size: 0.7rem;
+  color: #a0a0c0;
+  border-bottom: 1px solid #1a1a2e;
+}
+
+.note-label.black {
+  background: #2a2a4a;
+}
+
+.note-label.white {
+  background: #16213e;
+}
+
+#grid-container {
+  position: relative;
+  overflow-x: auto;
+  flex: 1;
+  min-width: 0;
+}
+
+#grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-row {
+  display: flex;
+  height: 20px;
+  border-bottom: 1px solid #1a1a2e;
+}
+
+.grid-cell {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  flex-shrink: 0;
+  border-right: 1px solid #1a1a2e;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.grid-cell:nth-child(4n) {
+  border-right: 2px solid #0f3460;
+}
+
+.grid-cell:hover {
+  background: rgba(15, 52, 96, 0.3);
+}
+
+.grid-cell.active {
+  background: #0f3460;
+  box-shadow: inset 0 0 10px rgba(15, 52, 96, 0.8);
+}
+
+.grid-cell.active:hover {
+  background: #1a4a7a;
+}
+
+#playhead {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: #e94560;
+  pointer-events: none;
+  display: none;
+  z-index: 10;
+}
+
+#selection-rect {
+  position: absolute;
+  background: rgba(15, 52, 96, 0.3);
+  border: 2px solid #0f3460;
+  pointer-events: none;
+  display: none;
+  z-index: 5;
+}
+
+#info {
+  margin-top: 20px;
+  text-align: center;
+  color: #a0a0c0;
+  font-size: 0.9rem;
+}
